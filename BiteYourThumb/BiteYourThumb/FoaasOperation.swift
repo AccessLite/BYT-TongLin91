@@ -34,13 +34,14 @@ class FoaasOperation: JSONConvertible, DataConvertible{
     convenience required init?(json: [String : AnyObject]) {
         guard let name: String = json["name"] as? String,
             let url: String = json["url"] as? String,
-            let fields: [AnyObject] = json["fields"] as? [AnyObject] else { return nil }
+            let fields: [[String: AnyObject]] = json["fields"] as? [[String: AnyObject]] else { return nil }
         
-        var allFields = [FoaasField]()
+        var allFields: [FoaasField] = []
         
         for element in fields{
-            guard let temp: [String: AnyObject] = element as? [String: AnyObject] else { return nil }
-            allFields.append(FoaasField(json: temp)!)
+            if let foaas = FoaasField(json: element){
+                allFields.append(foaas)
+            }
         }
         self.init(name: name, url: url, fields: allFields)
     }
@@ -53,7 +54,7 @@ class FoaasOperation: JSONConvertible, DataConvertible{
             
             self.init(json: json)
         } catch {
-            print(error)
+            print("Error initialization parsing data in FoaasOperation: \(error)")
         }
         return nil
     }

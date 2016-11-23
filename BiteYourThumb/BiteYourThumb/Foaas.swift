@@ -28,9 +28,7 @@ class Foaas: JSONConvertible, CustomStringConvertible {
 
     convenience required init?(json: [String : AnyObject]) {
         guard let message: String = json["message"] as? String,
-            let subtitle: String = json["subtitle"] as? String else{
-                return nil
-        }
+            let subtitle: String = json["subtitle"] as? String else{ return nil }
         self.init(message: message, subtitle: subtitle)
     }
     

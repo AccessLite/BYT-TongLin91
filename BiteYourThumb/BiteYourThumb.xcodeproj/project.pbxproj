@@ -16,6 +16,7 @@
 		EDFDA7211DE52AF600254F6C /* FoaasOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDA7201DE52AF600254F6C /* FoaasOperation.swift */; };
 		EDFDA7231DE52B2800254F6C /* FoaasField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDA7221DE52B2800254F6C /* FoaasField.swift */; };
 		EDFDA7251DE541E400254F6C /* FoaasProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDA7241DE541E400254F6C /* FoaasProtocols.swift */; };
+		EDFDA7271DE5566700254F6C /* FoaasAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDA7261DE5566700254F6C /* FoaasAPIManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		EDFDA7201DE52AF600254F6C /* FoaasOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoaasOperation.swift; sourceTree = "<group>"; };
 		EDFDA7221DE52B2800254F6C /* FoaasField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoaasField.swift; sourceTree = "<group>"; };
 		EDFDA7241DE541E400254F6C /* FoaasProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoaasProtocols.swift; sourceTree = "<group>"; };
+		EDFDA7261DE5566700254F6C /* FoaasAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoaasAPIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		EDFDA71D1DE5282200254F6C /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				EDFDA7261DE5566700254F6C /* FoaasAPIManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDFDA7251DE541E400254F6C /* FoaasProtocols.swift in Sources */,
+				EDFDA7271DE5566700254F6C /* FoaasAPIManager.swift in Sources */,
 				EDFDA70B1DE527FF00254F6C /* ViewController.swift in Sources */,
 				EDFDA7231DE52B2800254F6C /* FoaasField.swift in Sources */,
 				EDFDA7091DE527FF00254F6C /* AppDelegate.swift in Sources */,
