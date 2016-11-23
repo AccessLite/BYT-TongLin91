@@ -8,8 +8,64 @@
 
 import Foundation
 
-class FoaasOperation{
-
+class FoaasOperation: JSONConvertible, DataConvertible{
+    /*
+     {
+     "name": "Awesome",
+     "url": "/awesome/:from",
+     "fields": [
+     {
+     "name": "From",
+     "field": "from"
+     }
+     ]
+     },
+     */
+    let name: String
+    let url: String
+    let fields: [FoaasField]
     
+    init(name: String, url: String, fields: [FoaasField]) {
+        self.name = name
+        self.url = url
+        self.fields = fields
+    }
     
+    convenience required init?(json: [String : AnyObject]) {
+        guard let name: String = json["name"] as? String,
+            let url: String = json["url"] as? String,
+            let fields: [AnyObject] = json["fields"] as? [AnyObject] else { return nil }
+        
+        var allFields = [FoaasField]()
+        
+        for element in fields{
+            guard let temp: [String: AnyObject] = element as? [String: AnyObject] else { return nil }
+            allFields.append(FoaasField(json: temp)!)
+        }
+        self.init(name: name, url: url, fields: allFields)
+    }
+    
+    convenience required init?(data: Data) {
+        do {
+            let rawData: AnyObject = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+            
+            guard let json: [String: AnyObject] = rawData as? [String: AnyObject] else { return nil }
+            
+            self.init(json: json)
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+    
+    func toJson() -> [String : AnyObject] {
+        return [
+            "name": self.name as AnyObject,
+            "url": self.url as AnyObject,
+            "fields": self.fields as AnyObject]
+    }
+    
+    func toData() throws -> Data {
+        return try JSONSerialization.data(withJSONObject: self.toJson(), options: [])
+    }
 }
