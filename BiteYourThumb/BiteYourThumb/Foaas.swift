@@ -36,8 +36,8 @@ class Foaas: JSONConvertible, CustomStringConvertible {
     
     func toJson() -> [String : AnyObject] {
         return [
-        "message": message as AnyObject,
-        "subtitle": subtitle as AnyObject
+        "message": self.message as AnyObject,
+        "subtitle": self.subtitle as AnyObject
         ]
     }
 }
