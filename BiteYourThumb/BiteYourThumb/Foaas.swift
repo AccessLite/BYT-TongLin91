@@ -8,33 +8,36 @@
 
 import Foundation
 
-class Foaas {
+class Foaas: JSONConvertible, CustomStringConvertible {
+    /*
+     {
+     "message": "This is Fucking Awesome.",
+     "subtitle": "- Tong"
+     }
+    */
     let message: String
     let subtitle: String
+    var description: String {
+        return message + subtitle
+    }
     
-    //Optional initialization for Foaas model
-    init?(from dict:[String: Any]) {
-        guard let message: String = dict["message"] as? String,
-            let subtitle: String = dict["subtitle"] as? String else{
-                return nil
-        }
+    init(message: String, subtitle: String) {
         self.message = message
         self.subtitle = subtitle
     }
-    
-    //Function parsing raw data and return Foaas
-    static func getFoaas(data: Data) -> Foaas?{
-        do {
-            let json: AnyObject = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-            
-            guard let rawData: [String: Any] = json as? [String: Any] else { return nil }
-            
-            return Foaas(from: rawData)
-            
-        } catch {
-            print("Error when parsing Foaas: \(error)")
-        }
-        return nil
-    }
 
+    convenience required init?(json: [String : AnyObject]) {
+        guard let message: String = json["message"] as? String,
+            let subtitle: String = json["subtitle"] as? String else{
+                return nil
+        }
+        self.init(message: message, subtitle: subtitle)
+    }
+    
+    func toJson() -> [String : AnyObject] {
+        return [
+        "message": message as AnyObject,
+        "subtitle": subtitle as AnyObject
+        ]
+    }
 }
