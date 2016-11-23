@@ -12,6 +12,9 @@
 		EDFDA70E1DE527FF00254F6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDFDA70C1DE527FF00254F6C /* Main.storyboard */; };
 		EDFDA7101DE527FF00254F6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDFDA70F1DE527FF00254F6C /* Assets.xcassets */; };
 		EDFDA7131DE527FF00254F6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDFDA7111DE527FF00254F6C /* LaunchScreen.storyboard */; };
+		EDFDA71F1DE52A7700254F6C /* Foaas.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDA71E1DE52A7700254F6C /* Foaas.swift */; };
+		EDFDA7211DE52AF600254F6C /* FoaasOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDA7201DE52AF600254F6C /* FoaasOperation.swift */; };
+		EDFDA7231DE52B2800254F6C /* FoaasField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDA7221DE52B2800254F6C /* FoaasField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		EDFDA70F1DE527FF00254F6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDFDA7121DE527FF00254F6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDFDA7141DE527FF00254F6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDFDA71E1DE52A7700254F6C /* Foaas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foaas.swift; sourceTree = "<group>"; };
+		EDFDA7201DE52AF600254F6C /* FoaasOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoaasOperation.swift; sourceTree = "<group>"; };
+		EDFDA7221DE52B2800254F6C /* FoaasField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoaasField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,9 @@
 		EDFDA71C1DE5281B00254F6C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EDFDA71E1DE52A7700254F6C /* Foaas.swift */,
+				EDFDA7201DE52AF600254F6C /* FoaasOperation.swift */,
+				EDFDA7221DE52B2800254F6C /* FoaasField.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -170,7 +179,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDFDA70B1DE527FF00254F6C /* ViewController.swift in Sources */,
+				EDFDA7231DE52B2800254F6C /* FoaasField.swift in Sources */,
 				EDFDA7091DE527FF00254F6C /* AppDelegate.swift in Sources */,
+				EDFDA7211DE52AF600254F6C /* FoaasOperation.swift in Sources */,
+				EDFDA71F1DE52A7700254F6C /* Foaas.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
