@@ -63,7 +63,7 @@ class FoaasOperation: JSONConvertible, DataConvertible{
         return [
             "name": self.name as AnyObject,
             "url": self.url as AnyObject,
-            "fields": self.fields as AnyObject]
+            "fields": self.fields.flatMap{ $0.toJson() } as AnyObject]
     }
     
     func toData() throws -> Data {

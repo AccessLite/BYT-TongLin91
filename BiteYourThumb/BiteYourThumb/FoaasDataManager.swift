@@ -17,17 +17,28 @@ internal class FoaasDataManager {
     internal private(set) var operations: [FoaasOperation]?
     
     static func save(operations: [FoaasOperation]){
-        self.defaults.set(operations, forKey: self.operationsKey)
+        //convert operations to data
+        
+        let data = operations.flatMap{ FoaasOperation.toData($0) }
+        self.defaults.set(data, forKey: self.operationsKey)
         print("saving default data to key: " + self.operationsKey)
+        
     }
     
     static func load() -> Bool{
-        if let validData = self.defaults.value(forKey: self.operationsKey) as? [FoaasOperation]{
-            //do something after we got data from UserDefaults
-            self.shared.operations = validData
-            return true
+        guard let validData = self.defaults.value(forKey: self.operationsKey) as? [Data] else{
+            return false
         }
-        return false
+        
+        var finalVariable = [FoaasOperation]()
+        validData.forEach{
+            (element: Data) in
+            finalVariable.append(FoaasOperation(data: element)!)
+        }
+        self.shared.operations?.removeAll()
+        self.shared.operations = finalVariable
+        
+        return true
     }
     
     static func deleteStoredOperations(){

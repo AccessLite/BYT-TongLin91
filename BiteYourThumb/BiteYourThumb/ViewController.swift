@@ -12,13 +12,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        FoaasAPIManager.getOperations {
-            (final: [FoaasOperation]?) in
-            if final != nil{
-                
-            }
-        }
     }
 
     override func didReceiveMemoryWarning() {
