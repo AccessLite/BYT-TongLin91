@@ -20,9 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             FoaasAPIManager.getOperations{ (operationsData: [FoaasOperation]?) in
                 if operationsData != nil{
-                    DispatchQueue.main.async {
-                        FoaasDataManager.save(operations: operationsData!)
-                    }
+                    // Don't think async call is necessary
+                    FoaasDataManager.save(operations: operationsData!)
                 }
             }
         }
