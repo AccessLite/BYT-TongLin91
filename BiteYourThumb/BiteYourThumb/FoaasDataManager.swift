@@ -19,7 +19,8 @@ internal class FoaasDataManager {
     static func save(operations: [FoaasOperation]){
         //convert operations to data
         
-        let data = operations.flatMap{ FoaasOperation.toData($0) }
+        let data = operations.flatMap{ try? $0.toData() }
+        
         self.defaults.set(data, forKey: self.operationsKey)
         print("saving default data to key: " + self.operationsKey)
         
@@ -35,7 +36,9 @@ internal class FoaasDataManager {
             (element: Data) in
             finalVariable.append(FoaasOperation(data: element)!)
         }
-        self.shared.operations?.removeAll()
+        
+        // this isn't needed since operations will get overriden anyhow by re-assigning its value to finalVariable
+//        self.shared.operations?.removeAll()
         self.shared.operations = finalVariable
         
         return true

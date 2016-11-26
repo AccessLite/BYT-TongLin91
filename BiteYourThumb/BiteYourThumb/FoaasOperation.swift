@@ -63,7 +63,12 @@ class FoaasOperation: JSONConvertible, DataConvertible{
         return [
             "name": self.name as AnyObject,
             "url": self.url as AnyObject,
-            "fields": self.fields.flatMap{ $0.toJson() } as AnyObject]
+            // I don't have a really good reason as to why this *must* be map. But it must be map.
+            // I have a basis for a theory: from exploring this using breakpoints, there's some internal heap that's
+            // used in these flatMap operations that allows for an Optional to be added. And *somehow*, that
+            // optional sticks around to get read in by JSONSerialization. But since type Optional is not valid
+            // to be serialized, we get an error. But I have no other clues in their theory, so I welcome your help.
+            "fields": self.fields.map{ $0.toJson() } as AnyObject]
     }
     
     func toData() throws -> Data {
