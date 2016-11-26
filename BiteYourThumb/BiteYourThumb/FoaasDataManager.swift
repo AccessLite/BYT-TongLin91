@@ -18,24 +18,17 @@ internal class FoaasDataManager {
     
     static func save(operations: [FoaasOperation]){
         //convert operations to data
-        
-        let data = operations.flatMap{ FoaasOperation.toData($0) }
+        let data = operations.flatMap{ try? $0.toData() }
         self.defaults.set(data, forKey: self.operationsKey)
         print("saving default data to key: " + self.operationsKey)
-        
     }
     
     static func load() -> Bool{
-        guard let validData = self.defaults.value(forKey: self.operationsKey) as? [Data] else{
-            return false
-        }
         
-        var finalVariable = [FoaasOperation]()
-        validData.forEach{
-            (element: Data) in
-            finalVariable.append(FoaasOperation(data: element)!)
-        }
-        self.shared.operations?.removeAll()
+        guard let validData = self.defaults.value(forKey: self.operationsKey) as? [Data] else{ return false }
+        
+        let finalVariable:[FoaasOperation] = validData.flatMap{ FoaasOperation(data: $0) }
+        
         self.shared.operations = finalVariable
         
         return true

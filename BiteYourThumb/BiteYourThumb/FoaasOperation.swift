@@ -23,9 +23,9 @@ class FoaasOperation: JSONConvertible, DataConvertible{
      */
     let name: String
     let url: String
-    let fields: [FoaasField]
+    let fields: [FoaasField?]
     
-    init(name: String, url: String, fields: [FoaasField]) {
+    init(name: String, url: String, fields: [FoaasField?]) {
         self.name = name
         self.url = url
         self.fields = fields
@@ -36,7 +36,7 @@ class FoaasOperation: JSONConvertible, DataConvertible{
             let url: String = json["url"] as? String,
             let fields: [[String: AnyObject]] = json["fields"] as? [[String: AnyObject]] else { return nil }
         
-        var allFields: [FoaasField] = []
+        var allFields: [FoaasField?] = []
         
         for element in fields{
             if let foaas = FoaasField(json: element){
@@ -48,11 +48,8 @@ class FoaasOperation: JSONConvertible, DataConvertible{
     
     convenience required init?(data: Data) {
         do {
-            let rawData: AnyObject = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-            
-            guard let json: [String: AnyObject] = rawData as? [String: AnyObject] else { return nil }
-            
-            self.init(json: json)
+            let rawData: [String: AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
+            self.init(json: rawData)
         } catch {
             print("Error initialization parsing data in FoaasOperation: \(error)")
         }
@@ -63,10 +60,10 @@ class FoaasOperation: JSONConvertible, DataConvertible{
         return [
             "name": self.name as AnyObject,
             "url": self.url as AnyObject,
-            "fields": self.fields.flatMap{ $0.toJson() } as AnyObject]
+            "fields": (self.fields.isEmpty ? [] : self.fields.map{ $0!.toJson() }) as AnyObject]
     }
     
     func toData() throws -> Data {
-        return try JSONSerialization.data(withJSONObject: self.toJson(), options: [])
+        return NSKeyedArchiver.archivedData(withRootObject: self.toJson())
     }
 }
