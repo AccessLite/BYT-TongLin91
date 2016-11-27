@@ -23,9 +23,9 @@ class FoaasOperation: JSONConvertible, DataConvertible{
      */
     let name: String
     let url: String
-    let fields: [FoaasField?]
+    let fields: [FoaasField]
     
-    init(name: String, url: String, fields: [FoaasField?]) {
+    init(name: String, url: String, fields: [FoaasField]) {
         self.name = name
         self.url = url
         self.fields = fields
@@ -36,20 +36,21 @@ class FoaasOperation: JSONConvertible, DataConvertible{
             let url: String = json["url"] as? String,
             let fields: [[String: AnyObject]] = json["fields"] as? [[String: AnyObject]] else { return nil }
         
-        var allFields: [FoaasField?] = []
+        let allFields: [FoaasField] = fields.flatMap{ FoaasField(json: $0) }
         
-        for element in fields{
-            if let foaas = FoaasField(json: element){
-                allFields.append(foaas)
-            }
-        }
         self.init(name: name, url: url, fields: allFields)
     }
     
     convenience required init?(data: Data) {
         do {
-            let rawData: [String: AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
-            self.init(json: rawData)
+            let rawData = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]
+            
+            if let validJson = rawData {
+                self.init(json: validJson)
+            } else {
+                return nil
+            }
+            
         } catch {
             print("Error initialization parsing data in FoaasOperation: \(error)")
         }
@@ -60,10 +61,10 @@ class FoaasOperation: JSONConvertible, DataConvertible{
         return [
             "name": self.name as AnyObject,
             "url": self.url as AnyObject,
-            "fields": (self.fields.isEmpty ? [] : self.fields.map{ $0!.toJson() }) as AnyObject]
+            "fields": self.fields.map{ $0.toJson() } as AnyObject]
     }
     
     func toData() throws -> Data {
-        return NSKeyedArchiver.archivedData(withRootObject: self.toJson())
+        return try JSONSerialization.data(withJSONObject: self.toJson(), options: [])
     }
 }
