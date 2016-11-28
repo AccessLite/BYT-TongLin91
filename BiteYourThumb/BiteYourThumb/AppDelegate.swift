@@ -22,11 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             FoaasAPIManager.getOperations{ (operationsData: [FoaasOperation]?) in
                 if operationsData != nil{
                     FoaasDataManager.save(operations: operationsData!)
-                    
                 }
             }
         }
-        
         return true
     }
 

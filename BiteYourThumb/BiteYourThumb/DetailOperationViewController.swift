@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  DetailOperationViewController.swift
 //  BiteYourThumb
 //
 //  Created by Tong Lin on 11/26/16.
@@ -8,25 +8,12 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-    @IBOutlet weak var mainTextLabel: UILabel!
-    @IBOutlet weak var subtitleTextLabel: UILabel!
+class DetailOperationViewController: UIViewController {
 
-    var foaas: Foaas?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        FoaasAPIManager.getFoaas(url: URL(string: "http://www.foaas.com/awesome/louis")!) {
-             (foaas: Foaas?) in
-                if foaas != nil{
-                    DispatchQueue.main.async {
-                        self.foaas = foaas
-                        self.mainTextLabel.text = self.foaas?.message
-                        self.subtitleTextLabel.text = "From,/p" + (self.foaas?.subtitle)!
-                    }
-                }
-        }
+
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

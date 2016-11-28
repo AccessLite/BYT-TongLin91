@@ -50,11 +50,10 @@ class FoaasOperation: JSONConvertible, DataConvertible{
             } else {
                 return nil
             }
-            
         } catch {
             print("Error initialization parsing data in FoaasOperation: \(error)")
+            return nil
         }
-        return nil
     }
     
     func toJson() -> [String : AnyObject] {

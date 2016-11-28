@@ -26,11 +26,9 @@ internal class FoaasDataManager {
     static func load() -> Bool{
         
         guard let validData = self.defaults.value(forKey: self.operationsKey) as? [Data] else{ return false }
-        
         let finalVariable = validData.flatMap{ FoaasOperation(data: $0) }
         
         self.shared.operations = finalVariable
-        
         return true
     }
     
