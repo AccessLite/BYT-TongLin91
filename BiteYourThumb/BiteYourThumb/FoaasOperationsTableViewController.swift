@@ -9,10 +9,12 @@
 import UIKit
 
 class FoaasOperationsTableViewController: UITableViewController {
+    @IBOutlet weak var doneBarButton: UIBarButtonItem!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Operations"
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,6 +43,12 @@ class FoaasOperationsTableViewController: UITableViewController {
 
         return cell
     }
+    
+    
+    @IBAction func doneDidTapped(_ sender: Any) {
+        self.dismiss(animated: false, completion: nil)
+    }
+    
 
     /*
     // MARK: - Navigation

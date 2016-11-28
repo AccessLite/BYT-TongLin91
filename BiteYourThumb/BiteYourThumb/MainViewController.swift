@@ -17,15 +17,21 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadFoaas()
+    }
+    
+    func loadFoaas(){
+        self.mainTextLabel.text = ""
+        self.subtitleTextLabel.text = ""
         FoaasAPIManager.getFoaas(url: URL(string: "http://www.foaas.com/awesome/louis")!) {
-             (foaas: Foaas?) in
-                if foaas != nil{
-                    DispatchQueue.main.async {
-                        self.foaas = foaas
-                        self.mainTextLabel.text = self.foaas?.message
-                        self.subtitleTextLabel.text = "From,/p" + (self.foaas?.subtitle)!
-                    }
+            (foaas: Foaas?) in
+            if foaas != nil{
+                DispatchQueue.main.async {
+                    self.foaas = foaas
+                    self.mainTextLabel.text = self.foaas?.message
+                    self.subtitleTextLabel.text = "From,\n" + (self.foaas?.subtitle)!
                 }
+            }
         }
     }
 

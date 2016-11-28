@@ -28,7 +28,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUA-9b-6Hk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUA-9b-6Hk">
                                 <rect key="frame" x="21" y="107" width="333" height="58"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <nil key="textColor"/>
@@ -42,7 +42,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="Icon-60"/>
                                 <connections>
-                                    <segue destination="Y7L-AO-qR8" kind="show" identifier="ShawAllOperationsSegue" id="7Fb-m9-7KU"/>
+                                    <segue destination="f3s-lR-km1" kind="show" identifier="ShawAllOperationsSegue" id="7Fb-m9-7KU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -93,10 +93,20 @@
                             <outlet property="delegate" destination="Y7L-AO-qR8" id="4BF-9V-hfE"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="lUa-cy-HH0">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="0BT-HK-81U">
+                            <connections>
+                                <action selector="doneDidTapped:" destination="Y7L-AO-qR8" id="wiF-T6-7Pn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="doneBarButton" destination="0BT-HK-81U" id="HN0-xd-vys"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G6K-aW-e93" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="818" y="54"/>
+            <point key="canvasLocation" x="1580" y="815"/>
         </scene>
         <!--Detail Operation View Controller-->
         <scene sceneID="Pkw-9q-b7V">
@@ -114,7 +124,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zf4-Ch-NQk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1558" y="54"/>
+            <point key="canvasLocation" x="2390" y="815"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4AJ-K5-jVZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f3s-lR-km1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dty-uU-7I1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y7L-AO-qR8" kind="relationship" relationship="rootViewController" id="KsF-5x-m4Y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7wc-FT-0OP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="816.79999999999995" y="53.523238380809602"/>
         </scene>
     </scenes>
     <resources>
