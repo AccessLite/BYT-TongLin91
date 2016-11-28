@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  FoaasViewController.swift
 //  BiteYourThumb
 //
 //  Created by Tong Lin on 11/26/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class FoaasViewController: UIViewController {
     @IBOutlet weak var mainTextLabel: UILabel!
     @IBOutlet weak var subtitleTextLabel: UILabel!
 
@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     func loadFoaas(){
         self.mainTextLabel.text = ""
         self.subtitleTextLabel.text = ""
-        FoaasAPIManager.getFoaas(url: URL(string: "http://www.foaas.com/awesome/louis")!) {
+        FoaasAPIManager.getFoaas(url: URL(string: "http://www.foaas.com/madison/me/future")!) {
             (foaas: Foaas?) in
             if foaas != nil{
                 DispatchQueue.main.async {

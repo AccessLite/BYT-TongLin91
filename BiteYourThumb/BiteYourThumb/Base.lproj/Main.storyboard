@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Foaas View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="BiteYourThumb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="FoaasViewController" customModule="BiteYourThumb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -23,14 +23,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVc-6r-2Qb">
-                                <rect key="frame" x="21" y="25" width="333" height="72"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <rect key="frame" x="21" y="25" width="333" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUA-9b-6Hk">
-                                <rect key="frame" x="21" y="107" width="333" height="58"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <rect key="frame" x="21" y="71" width="333" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -59,8 +59,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mainTextLabel" destination="GVc-6r-2Qb" id="yUh-om-Lwc"/>
-                        <outlet property="subtitleTextLabel" destination="JUA-9b-6Hk" id="vfA-TR-Rhw"/>
+                        <outlet property="mainTextLabel" destination="GVc-6r-2Qb" id="8Zn-t2-dQR"/>
+                        <outlet property="subtitleTextLabel" destination="JUA-9b-6Hk" id="B1Z-29-X6R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -108,10 +108,10 @@
             </objects>
             <point key="canvasLocation" x="1580" y="815"/>
         </scene>
-        <!--Detail Operation View Controller-->
+        <!--Foaas Preview View Controller-->
         <scene sceneID="Pkw-9q-b7V">
             <objects>
-                <viewController id="SNR-ev-QAL" customClass="DetailOperationViewController" customModule="BiteYourThumb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="SNR-ev-QAL" customClass="FoaasPreviewViewController" customModule="BiteYourThumb" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8re-bV-LEj"/>
                         <viewControllerLayoutGuide type="bottom" id="D2E-Ak-rdx"/>
@@ -119,8 +119,90 @@
                     <view key="view" contentMode="scaleToFill" id="K2r-YU-kjC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preview:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ef7-8Z-6F7">
+                                <rect key="frame" x="16" y="69" width="343" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSs-Se-CQG">
+                                <rect key="frame" x="21" y="101" width="333" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Name&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2TZ-Ui-KoR">
+                                <rect key="frame" x="21" y="143" width="333" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ShW-Xt-L60">
+                                <rect key="frame" x="21" y="184" width="333" height="22"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;From&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7z-MW-KwM">
+                                <rect key="frame" x="21" y="226" width="333" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="From" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fe6-Vf-MIj">
+                                <rect key="frame" x="21" y="267" width="333" height="22"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Reference&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDw-Kh-9Sa">
+                                <rect key="frame" x="21" y="309" width="333" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Reference" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cw6-2n-8LL">
+                                <rect key="frame" x="21" y="350" width="333" height="22"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cw6-2n-8LL" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" constant="5" id="2Ro-QK-yjD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="c7z-MW-KwM" secondAttribute="trailing" constant="5" id="2jQ-ch-0HZ"/>
+                            <constraint firstItem="LDw-Kh-9Sa" firstAttribute="top" secondItem="Fe6-Vf-MIj" secondAttribute="bottom" constant="20" id="3Di-fG-aHc"/>
+                            <constraint firstItem="Cw6-2n-8LL" firstAttribute="top" secondItem="LDw-Kh-9Sa" secondAttribute="bottom" constant="20" id="5We-NP-jUw"/>
+                            <constraint firstItem="HSs-Se-CQG" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" constant="5" id="7nT-Z7-LDP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="HSs-Se-CQG" secondAttribute="trailing" constant="5" id="BDx-l1-RZO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Cw6-2n-8LL" secondAttribute="trailing" constant="5" id="EX7-0h-ych"/>
+                            <constraint firstItem="HSs-Se-CQG" firstAttribute="top" secondItem="ef7-8Z-6F7" secondAttribute="bottom" constant="8" id="K0c-un-D4F"/>
+                            <constraint firstItem="ShW-Xt-L60" firstAttribute="top" secondItem="2TZ-Ui-KoR" secondAttribute="bottom" constant="20" id="Ki4-9c-E81"/>
+                            <constraint firstItem="ShW-Xt-L60" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" constant="5" id="MuP-Ln-zjd"/>
+                            <constraint firstItem="2TZ-Ui-KoR" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" constant="5" id="NUf-Qs-tWh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LDw-Kh-9Sa" secondAttribute="trailing" constant="5" id="TOh-lX-fZ6"/>
+                            <constraint firstItem="c7z-MW-KwM" firstAttribute="top" secondItem="ShW-Xt-L60" secondAttribute="bottom" constant="20" id="V3M-aE-QdS"/>
+                            <constraint firstItem="Fe6-Vf-MIj" firstAttribute="top" secondItem="c7z-MW-KwM" secondAttribute="bottom" constant="20" id="WZU-mu-kh5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2TZ-Ui-KoR" secondAttribute="trailing" constant="5" id="X4X-1O-4Iw"/>
+                            <constraint firstItem="2TZ-Ui-KoR" firstAttribute="top" secondItem="HSs-Se-CQG" secondAttribute="bottom" constant="20" id="ck1-ct-NN3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ef7-8Z-6F7" secondAttribute="trailing" id="oFh-tN-bwg"/>
+                            <constraint firstItem="Fe6-Vf-MIj" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" constant="5" id="p0F-Vj-dL6"/>
+                            <constraint firstItem="ef7-8Z-6F7" firstAttribute="top" secondItem="8re-bV-LEj" secondAttribute="bottom" constant="5" id="pAJ-Jz-Dz2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ShW-Xt-L60" secondAttribute="trailing" constant="5" id="pje-VZ-CU1"/>
+                            <constraint firstItem="c7z-MW-KwM" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" constant="5" id="ubA-OB-j2d"/>
+                            <constraint firstItem="ef7-8Z-6F7" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" id="uhB-df-C6z"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Fe6-Vf-MIj" secondAttribute="trailing" constant="5" id="wFA-SL-nOQ"/>
+                            <constraint firstItem="LDw-Kh-9Sa" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" constant="5" id="xzL-Oc-D6f"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="fromTextField" destination="Fe6-Vf-MIj" id="MDK-F3-sCc"/>
+                        <outlet property="nameTextField" destination="ShW-Xt-L60" id="bDg-N1-kQN"/>
+                        <outlet property="previewLabel" destination="HSs-Se-CQG" id="BRD-ND-B8K"/>
+                        <outlet property="referenceTextField" destination="Cw6-2n-8LL" id="8gd-y2-fYk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zf4-Ch-NQk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
