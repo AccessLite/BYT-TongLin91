@@ -20,6 +20,20 @@ class FoaasViewController: UIViewController {
         loadFoaas()
     }
     
+    internal func registerForNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(updateFoaas(sender:)), name: Notification.Name(rawValue: "FoaasObjectDidUpdate"), object: nil)
+    }
+    
+    internal func updateFoaas(sender: Notification) {
+        if let notificationBundle = sender.userInfo {
+            if let newFoaas = notificationBundle["foaas"] as? Foaas {
+                self.foaas = newFoaas
+                self.updateView()
+            }
+        }
+    }
+    
     func loadFoaas(){
         self.mainTextLabel.text = ""
         self.subtitleTextLabel.text = ""
@@ -28,16 +42,15 @@ class FoaasViewController: UIViewController {
             if foaas != nil{
                 DispatchQueue.main.async {
                     self.foaas = foaas
-                    self.mainTextLabel.text = self.foaas?.message
-                    self.subtitleTextLabel.text = "From,\n" + (self.foaas?.subtitle)!
+                    self.updateView()
                 }
             }
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func updateView(){
+        self.mainTextLabel.text = self.foaas?.message
+        self.subtitleTextLabel.text = "From,\n" + (self.foaas?.subtitle)!
     }
     
 

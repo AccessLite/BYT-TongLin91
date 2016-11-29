@@ -42,7 +42,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="Icon-60"/>
                                 <connections>
-                                    <segue destination="f3s-lR-km1" kind="show" identifier="ShawAllOperationsSegue" id="7Fb-m9-7KU"/>
+                                    <segue destination="f3s-lR-km1" kind="presentation" identifier="ShawAllOperationsSegue" modalTransitionStyle="flipHorizontal" id="7Fb-m9-7KU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -80,7 +80,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iyC-U7-dt9" id="kte-dF-2GQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -108,7 +108,7 @@
             </objects>
             <point key="canvasLocation" x="1580" y="815"/>
         </scene>
-        <!--Foaas Preview View Controller-->
+        <!--Title-->
         <scene sceneID="Pkw-9q-b7V">
             <objects>
                 <viewController id="SNR-ev-QAL" customClass="FoaasPreviewViewController" customModule="BiteYourThumb" customModuleProvider="target" sceneMemberID="viewController">
@@ -142,7 +142,7 @@
                                 <rect key="frame" x="21" y="184" width="333" height="22"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;From&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7z-MW-KwM">
                                 <rect key="frame" x="21" y="226" width="333" height="21"/>
@@ -154,7 +154,7 @@
                                 <rect key="frame" x="21" y="267" width="333" height="22"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Reference&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDw-Kh-9Sa">
                                 <rect key="frame" x="21" y="309" width="333" height="21"/>
@@ -166,7 +166,7 @@
                                 <rect key="frame" x="21" y="350" width="333" height="22"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -197,11 +197,21 @@
                             <constraint firstItem="LDw-Kh-9Sa" firstAttribute="leading" secondItem="K2r-YU-kjC" secondAttribute="leadingMargin" constant="5" id="xzL-Oc-D6f"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="6eo-J5-ghG">
+                        <barButtonItem key="rightBarButtonItem" title="Select" id="bgf-at-9RK">
+                            <connections>
+                                <action selector="selectButtonTapped:" destination="SNR-ev-QAL" id="usK-6z-wzF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="fromTextField" destination="Fe6-Vf-MIj" id="MDK-F3-sCc"/>
-                        <outlet property="nameTextField" destination="ShW-Xt-L60" id="bDg-N1-kQN"/>
+                        <outlet property="firstLabel" destination="2TZ-Ui-KoR" id="g1u-ll-lBb"/>
+                        <outlet property="firstTextField" destination="ShW-Xt-L60" id="FnV-QR-9ph"/>
                         <outlet property="previewLabel" destination="HSs-Se-CQG" id="BRD-ND-B8K"/>
-                        <outlet property="referenceTextField" destination="Cw6-2n-8LL" id="8gd-y2-fYk"/>
+                        <outlet property="secondLabel" destination="c7z-MW-KwM" id="qAc-to-USa"/>
+                        <outlet property="secondTextField" destination="Fe6-Vf-MIj" id="4mo-G5-39g"/>
+                        <outlet property="thirdLabel" destination="LDw-Kh-9Sa" id="2Gg-p4-5if"/>
+                        <outlet property="thirdTextField" destination="Cw6-2n-8LL" id="DTV-CB-l4M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zf4-Ch-NQk" userLabel="First Responder" sceneMemberID="firstResponder"/>
