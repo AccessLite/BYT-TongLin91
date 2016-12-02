@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //FoaasDataManager.deleteStoredOperations()
         
         if !FoaasDataManager.load(){
-            
             FoaasAPIManager.getOperations{ (operationsData: [FoaasOperation]?) in
                 if operationsData != nil{
                     FoaasDataManager.save(operations: operationsData!)

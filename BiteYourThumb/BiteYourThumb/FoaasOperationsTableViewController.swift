@@ -25,13 +25,12 @@ class FoaasOperationsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return (FoaasDataManager.shared.operations?.count)!
+        // the biggest thing we want to avoid is a crash. so to be a bit safer here, we make this change
+        return FoaasDataManager.shared.operations?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

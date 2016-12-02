@@ -11,12 +11,11 @@ import UIKit
 class FoaasViewController: UIViewController {
     @IBOutlet weak var mainTextLabel: UILabel!
     @IBOutlet weak var subtitleTextLabel: UILabel!
-
-    var foaas: Foaas?
     
+    // The view controller in this case doesn't really need to keep a reference to the Foaas object, so we can re-write the code w/o it
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.registerForNotifications() // missed this one!
         loadFoaas()
     }
     
@@ -28,40 +27,28 @@ class FoaasViewController: UIViewController {
     internal func updateFoaas(sender: Notification) {
         if let notificationBundle = sender.userInfo {
             if let newFoaas = notificationBundle["foaas"] as? Foaas {
-                self.foaas = newFoaas
-                self.updateView()
+                self.updateLabel(with: newFoaas)
             }
         }
     }
     
-    func loadFoaas(){
+    func loadFoaas(from url: URL = URL(string: "http://www.foaas.com/madison/me/future")!){
         self.mainTextLabel.text = ""
         self.subtitleTextLabel.text = ""
-        FoaasAPIManager.getFoaas(url: URL(string: "http://www.foaas.com/madison/me/future")!) {
-            (foaas: Foaas?) in
+        
+        // Excellent choice in using one of the longest URLs to test your label's bounds
+        FoaasAPIManager.getFoaas(url: url) { (foaas: Foaas?) in
             if foaas != nil{
-                DispatchQueue.main.async {
-                    self.foaas = foaas
-                    self.updateView()
-                }
+                self.updateLabel(with: foaas!)
             }
         }
     }
-
-    func updateView(){
-        self.mainTextLabel.text = self.foaas?.message
-        self.subtitleTextLabel.text = "From,\n" + (self.foaas?.subtitle)!
+    
+    func updateLabel(with foaas: Foaas){
+        DispatchQueue.main.async {
+            self.mainTextLabel.text = foaas.message
+            self.subtitleTextLabel.text = "From,\n" + foaas.subtitle
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

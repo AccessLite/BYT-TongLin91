@@ -32,6 +32,10 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
 
         setupView()
         updatePreview()
+      
+        self.firstTextField.delegate = self
+        self.secondTextField.delegate = self
+        self.thirdTextField.delegate = self
     }
     
     func setupView(){
@@ -89,33 +93,36 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     }
     
     internal func getEndpoint() -> String{
+        // your code crashes if URL has a space in it because you're not sending back percent encoded strings
         let header = (self.operation?.url.components(separatedBy: "/:").first)!
+        var returnString: String
         switch (self.operation?.fields.count)! {
         case 1:
-            return "http://www.foaas.com\(header)/\(firstKeyWord)"
+            returnString = "http://www.foaas.com\(header)/\(firstKeyWord)"
         case 2:
-            return "http://www.foaas.com\(header)/\(firstKeyWord)/\(secondKeyWord)"
+            returnString = "http://www.foaas.com\(header)/\(firstKeyWord)/\(secondKeyWord)"
         case 3:
-            return "http://www.foaas.com\(header)/\(firstKeyWord)/\(secondKeyWord)/\(thirdKeyWord)"
+            returnString = "http://www.foaas.com\(header)/\(firstKeyWord)/\(secondKeyWord)/\(thirdKeyWord)"
         default:
-            return "http://www.foaas.com\(header)"
+            returnString = "http://www.foaas.com\(header)"
         }
+        return returnString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
     }
-    
+  
+  
+    // this function never actually gets called because you never set the textField's delegate property
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case firstTextField:
             self.firstKeyWord = textField.text!
-            updatePreview()
         case secondTextField:
             self.secondKeyWord = textField.text!
-            updatePreview()
         case thirdTextField:
             self.thirdKeyWord = textField.text!
-            updatePreview()
         default:
             print("smile")
         }
+        updatePreview()
     }
     
     @IBAction func selectButtonTapped(_ sender: Any) {
@@ -124,17 +131,6 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         notificationCenter.post(name: Notification.Name(rawValue: "FoaasObjectDidUpdate"), object: nil, userInfo: [ "foaas" : self.foaas! ])
         
         dismiss(animated: true, completion: nil)
-
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
