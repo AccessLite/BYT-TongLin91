@@ -43,7 +43,7 @@ class FoaasAPIManager {
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        defaultSession.dataTask(with: request) {(someData: Data?, _, someError: Error?) in
+        defaultSession.dataTask(with: request) { (someData: Data?, _, someError: Error?) in
             if someError != nil{
                 print("Error with foaas operation url request: \(someError!)")
             }
@@ -53,14 +53,15 @@ class FoaasAPIManager {
                     let json = try JSONSerialization.jsonObject(with: someData!, options: []) as? [[String: AnyObject]]
                     
                     var finalOperation = [FoaasOperation]()
-                    
+            
                     for element in json!{
                         finalOperation.append(FoaasOperation(json: element)!)
                     }
                     
                     completion(finalOperation)
                     
-                }catch{
+                }
+                catch {
                     print("Error serializing operation data: \(error)")
                 }
             }
