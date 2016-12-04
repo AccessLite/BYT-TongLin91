@@ -54,14 +54,32 @@ class FoaasViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
+    @IBAction func octobuttonTapped(_ sender: UIButton) {
+        // create references to the different transforms
+        let newTransform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        let originalTransform = sender.imageView!.transform
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            // animate to newTransform
+            sender.transform = newTransform
+            
+        }, completion: { (complete) in
+            // return to original transform
+            sender.transform = originalTransform
+        })
+        
+        
+    }
+
+     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }

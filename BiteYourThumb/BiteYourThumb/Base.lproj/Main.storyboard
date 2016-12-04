@@ -42,6 +42,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="Icon-60"/>
                                 <connections>
+                                    <action selector="octobuttonTapped:" destination="BYZ-38-t0r" eventType="touchDown" id="tWQ-uJ-YkY"/>
                                     <segue destination="f3s-lR-km1" kind="presentation" identifier="ShawAllOperationsSegue" modalTransitionStyle="flipHorizontal" id="7Fb-m9-7KU"/>
                                 </connections>
                             </button>
