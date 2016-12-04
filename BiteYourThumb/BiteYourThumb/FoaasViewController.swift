@@ -17,6 +17,7 @@ class FoaasViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerForNotifications()
         loadFoaas()
     }
     
@@ -26,8 +27,9 @@ class FoaasViewController: UIViewController {
     }
     
     internal func updateFoaas(sender: Notification) {
-        if let notificationBundle = sender.userInfo {
+        if let notificationBundle = sender.userInfo as? [String: Any]{
             if let newFoaas = notificationBundle["foaas"] as? Foaas {
+                
                 self.foaas = newFoaas
                 self.updateView()
             }

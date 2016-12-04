@@ -9,6 +9,9 @@
 import UIKit
 
 class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var previewLabel: UILabel!
     @IBOutlet weak var firstTextField: UITextField!
     @IBOutlet weak var secondTextField: UITextField!
@@ -21,17 +24,38 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     var firstKeyWord: String = ""
     var secondKeyWord: String = ""
     var thirdKeyWord: String = ""
+    
+    let notificationCenter = NotificationCenter.default
     var operation: FoaasOperation?
     var foaas : Foaas?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        firstTextField.delegate = self
+        secondTextField.delegate = self
+        thirdTextField.delegate = self
+        
         self.navigationItem.title = self.operation?.name
-        self.previewLabel.text = self.operation?.name
-
         setupView()
         updatePreview()
+        
+        notificationCenter.addObserver(self, selector: #selector(willShow(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(willHide(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func willShow(sender: NSNotification){
+        if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -keyboardSize.height)
+            self.scrollView.updateConstraints()
+        }
+    }
+    
+    func willHide(sender: NSNotification){
+        if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: +keyboardSize.height)
+             self.scrollView.updateConstraints()
+        }
     }
     
     func setupView(){
@@ -78,15 +102,17 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     }
 
     func updatePreview(){
-        FoaasAPIManager.getFoaas(url: URL(string: self.getEndpoint())!){ (foaas: Foaas?) in
+        let finalEndpoint = self.getEndpoint().addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        FoaasAPIManager.getFoaas(url: URL(string: finalEndpoint)!){ (foaas: Foaas?) in
             if foaas != nil{
                 DispatchQueue.main.async {
-                    self.previewLabel.text = (foaas?.message)! + (foaas?.subtitle)!
                     self.foaas = foaas
+                    self.previewLabel.text = (self.foaas?.message)! + "\n" + (self.foaas?.subtitle)!
                 }
             }
         }
     }
+    
     
     internal func getEndpoint() -> String{
         let header = (self.operation?.url.components(separatedBy: "/:").first)!
@@ -102,7 +128,7 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case firstTextField:
             self.firstKeyWord = textField.text!
@@ -116,12 +142,14 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         default:
             print("smile")
         }
+        textField.resignFirstResponder()
+        self.view.endEditing(true)
+        return true
     }
     
     @IBAction func selectButtonTapped(_ sender: Any) {
         //send foaas to view controller
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.post(name: Notification.Name(rawValue: "FoaasObjectDidUpdate"), object: nil, userInfo: [ "foaas" : self.foaas! ])
+        notificationCenter.post(name: Notification.Name(rawValue: "FoaasObjectDidUpdate"), object: nil, userInfo: ["foaas" : self.foaas!])
         
         dismiss(animated: true, completion: nil)
 
