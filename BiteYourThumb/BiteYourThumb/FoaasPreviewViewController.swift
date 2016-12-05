@@ -32,9 +32,9 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firstTextField.delegate = self
-        secondTextField.delegate = self
-        thirdTextField.delegate = self
+        self.firstTextField.delegate = self
+        self.secondTextField.delegate = self
+        self.thirdTextField.delegate = self
         
         self.navigationItem.title = self.operation?.name
         setupView()
@@ -43,6 +43,8 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         notificationCenter.addObserver(self, selector: #selector(willShow(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         notificationCenter.addObserver(self, selector: #selector(willHide(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    
+    // MARK: - Navigation
     
     func willShow(sender: NSNotification){
         if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -132,18 +134,16 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         switch textField {
         case firstTextField:
             self.firstKeyWord = textField.text!
-            updatePreview()
         case secondTextField:
             self.secondKeyWord = textField.text!
-            updatePreview()
         case thirdTextField:
             self.thirdKeyWord = textField.text!
-            updatePreview()
         default:
             print("smile")
         }
         textField.resignFirstResponder()
         self.view.endEditing(true)
+        updatePreview()
         return true
     }
     
@@ -154,15 +154,4 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true, completion: nil)
 
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

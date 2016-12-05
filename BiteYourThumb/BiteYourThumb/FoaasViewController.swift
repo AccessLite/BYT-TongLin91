@@ -11,13 +11,11 @@ import UIKit
 class FoaasViewController: UIViewController {
     @IBOutlet weak var mainTextLabel: UILabel!
     @IBOutlet weak var subtitleTextLabel: UILabel!
-
-    var foaas: Foaas?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerForNotifications()
+        self.registerForNotifications()
         loadFoaas()
     }
     
@@ -29,33 +27,23 @@ class FoaasViewController: UIViewController {
     internal func updateFoaas(sender: Notification) {
         if let notificationBundle = sender.userInfo as? [String: Any]{
             if let newFoaas = notificationBundle["foaas"] as? Foaas {
-                
-                self.foaas = newFoaas
-                self.updateView()
+                self.updateLabel(with: newFoaas)
             }
         }
     }
     
-    func loadFoaas(){
+    func loadFoaas(from url: URL = URL(string: "http://www.foaas.com/madison/me/future")!){
         self.mainTextLabel.text = ""
         self.subtitleTextLabel.text = ""
-        FoaasAPIManager.getFoaas(url: URL(string: "http://www.foaas.com/madison/me/future")!) {
+        FoaasAPIManager.getFoaas(url: url) {
             (foaas: Foaas?) in
             if foaas != nil{
                 DispatchQueue.main.async {
-                    self.foaas = foaas
-                    self.updateView()
+                    self.updateLabel(with: foaas!)
                 }
             }
         }
     }
-
-    func updateView(){
-        self.mainTextLabel.text = self.foaas?.message
-        self.subtitleTextLabel.text = "From,\n" + (self.foaas?.subtitle)!
-    }
-    
-
     
     // MARK: - Navigation
 
@@ -72,16 +60,13 @@ class FoaasViewController: UIViewController {
             // return to original transform
             sender.transform = originalTransform
         })
-        
-        
     }
 
-     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func updateLabel(with foaas: Foaas){
+        DispatchQueue.main.async {
+            self.mainTextLabel.text = foaas.message
+            self.subtitleTextLabel.text = "From,\n" + foaas.subtitle
+        }
     }
-    
 
 }
