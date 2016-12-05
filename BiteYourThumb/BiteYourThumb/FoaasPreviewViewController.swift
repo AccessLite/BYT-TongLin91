@@ -11,6 +11,7 @@ import UIKit
 class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var singleTappedGesture: UITapGestureRecognizer!
     
     @IBOutlet weak var previewLabel: UILabel!
     @IBOutlet weak var firstTextField: UITextField!
@@ -25,6 +26,7 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     var secondKeyWord: String = ""
     var thirdKeyWord: String = ""
     
+    @IBOutlet weak var bottomOfScrollView: NSLayoutConstraint!
     let notificationCenter = NotificationCenter.default
     var operation: FoaasOperation?
     var foaas : Foaas?
@@ -48,15 +50,19 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     
     func willShow(sender: NSNotification){
         if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -keyboardSize.height)
-            self.scrollView.updateConstraints()
+            if self.bottomOfScrollView.constant == 0{
+                self.bottomOfScrollView.constant += keyboardSize.height
+                self.scrollView.updateConstraints()
+            }
         }
     }
     
     func willHide(sender: NSNotification){
         if let keyboardSize = (sender.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: +keyboardSize.height)
-             self.scrollView.updateConstraints()
+            if self.bottomOfScrollView.constant > 0{
+                self.bottomOfScrollView.constant -= keyboardSize.height
+                self.scrollView.updateConstraints()
+            }
         }
     }
     
@@ -115,7 +121,6 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
     internal func getEndpoint() -> String{
         let header = (self.operation?.url.components(separatedBy: "/:").first)!
         switch (self.operation?.fields.count)! {
@@ -145,6 +150,16 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         updatePreview()
         return true
+    }
+    
+    @IBAction func didPerformGesture(_ sender: UIGestureRecognizer){
+        switch sender {
+        case singleTappedGesture:
+            self.view.endEditing(true)
+        default:
+            print("Nothing happens")
+        }
+    
     }
     
     @IBAction func selectButtonTapped(_ sender: Any) {

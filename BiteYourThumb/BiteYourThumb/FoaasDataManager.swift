@@ -8,34 +8,38 @@
 
 import Foundation
 
-internal class FoaasDataManager {
-    static internal let shared: FoaasDataManager = FoaasDataManager()
+class FoaasDataManager {
+    static let shared: FoaasDataManager = FoaasDataManager()
     init() { }
     
     private static let operationsKey: String = "FoaasOperationsKey"
     private static let defaults = UserDefaults.standard
     internal private(set) var operations: [FoaasOperation]?
     
-    static func save(operations: [FoaasOperation]){
+    func save(operations: [FoaasOperation]){
         //convert operations to data
         let data = operations.flatMap{ try? $0.toData() }
-        self.defaults.set(data, forKey: self.operationsKey)
-        self.shared.operations = operations
-        print("saving default data to key: " + self.operationsKey)
+        FoaasDataManager.defaults.set(data, forKey: FoaasDataManager.operationsKey)
+        FoaasDataManager.shared.operations = operations
+        print("saving default data to key: " + FoaasDataManager.operationsKey)
     }
     
-    static func load() -> Bool{
+    func load() -> Bool{
         
-        guard let validData = self.defaults.value(forKey: self.operationsKey) as? [Data] else{ return false }
+        guard let validData = FoaasDataManager.defaults.value(forKey: FoaasDataManager.operationsKey) as? [Data] else{ return false }
         let operations = validData.flatMap{ FoaasOperation(data: $0) }
         
-        self.shared.operations = operations
+        FoaasDataManager.shared.operations = operations
         return true
     }
     
-    static func deleteStoredOperations(){
-        self.defaults.set(nil, forKey: self.operationsKey)
-        self.shared.operations = nil
-        print("delete default data for key: " + self.operationsKey)
+    func deleteStoredOperations(){
+        FoaasDataManager.defaults.set(nil, forKey: FoaasDataManager.operationsKey)
+        FoaasDataManager.shared.operations = nil
+        print("delete default data for key: " + FoaasDataManager.operationsKey)
+    }
+    
+    internal func requestOperations(_ operations: @escaping ([FoaasOperation]?)->Void) {
+        FoaasAPIManager.getOperations(completion: operations)
     }
 }

@@ -126,7 +126,7 @@
             </objects>
             <point key="canvasLocation" x="1580" y="815"/>
         </scene>
-        <!--Title-->
+        <!--Preview-->
         <scene sceneID="Pkw-9q-b7V">
             <objects>
                 <viewController id="SNR-ev-QAL" customClass="FoaasPreviewViewController" customModule="BiteYourThumb" customModuleProvider="target" sceneMemberID="viewController">
@@ -214,6 +214,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="HSs-Se-CQG" firstAttribute="centerX" secondItem="0xf-OC-aeS" secondAttribute="centerX" id="7J7-BZ-UTU"/>
                                     <constraint firstItem="2TZ-Ui-KoR" firstAttribute="top" secondItem="HSs-Se-CQG" secondAttribute="bottom" constant="30" id="7WF-jc-hlL"/>
@@ -235,6 +236,9 @@
                                     <constraint firstItem="c7z-MW-KwM" firstAttribute="centerX" secondItem="0xf-OC-aeS" secondAttribute="centerX" id="qQd-bf-KAG"/>
                                     <constraint firstItem="Cw6-2n-8LL" firstAttribute="top" secondItem="LDw-Kh-9Sa" secondAttribute="bottom" constant="10" id="wA0-Mg-gWt"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="oPY-D0-HXa" appends="YES" id="vb2-MN-4Qo"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -246,7 +250,7 @@
                             <constraint firstItem="0xf-OC-aeS" firstAttribute="width" secondItem="K2r-YU-kjC" secondAttribute="width" id="tZn-bH-vLa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="6eo-J5-ghG">
+                    <navigationItem key="navigationItem" title="Preview" id="6eo-J5-ghG">
                         <barButtonItem key="rightBarButtonItem" title="Select" id="bgf-at-9RK">
                             <connections>
                                 <action selector="selectButtonTapped:" destination="SNR-ev-QAL" id="usK-6z-wzF"/>
@@ -254,17 +258,24 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomOfScrollView" destination="gZv-GL-psJ" id="RDj-l2-Xbk"/>
                         <outlet property="firstLabel" destination="2TZ-Ui-KoR" id="g1u-ll-lBb"/>
                         <outlet property="firstTextField" destination="ShW-Xt-L60" id="FnV-QR-9ph"/>
                         <outlet property="previewLabel" destination="HSs-Se-CQG" id="BRD-ND-B8K"/>
                         <outlet property="scrollView" destination="0xf-OC-aeS" id="fF7-xB-7cY"/>
                         <outlet property="secondLabel" destination="c7z-MW-KwM" id="qAc-to-USa"/>
                         <outlet property="secondTextField" destination="Fe6-Vf-MIj" id="4mo-G5-39g"/>
+                        <outlet property="singleTappedGesture" destination="oPY-D0-HXa" id="0jz-bU-Tdr"/>
                         <outlet property="thirdLabel" destination="LDw-Kh-9Sa" id="2Gg-p4-5if"/>
                         <outlet property="thirdTextField" destination="Cw6-2n-8LL" id="DTV-CB-l4M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zf4-Ch-NQk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="oPY-D0-HXa">
+                    <connections>
+                        <action selector="didPerformGesture:" destination="SNR-ev-QAL" id="bQn-oq-ROa"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2390" y="815"/>
         </scene>
