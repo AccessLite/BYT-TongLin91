@@ -8,15 +8,40 @@
 
 import UIKit
 
-class FoaasViewController: UIViewController {
+class FoaasViewController: UIViewController{
     @IBOutlet weak var mainTextLabel: UILabel!
     @IBOutlet weak var subtitleTextLabel: UILabel!
+    @IBOutlet weak var tapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var longPressGesture: UILongPressGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.registerForNotifications()
         loadFoaas()
+    }
+    
+    @IBAction func didPerformGesture(_ sender: UIGestureRecognizer){
+        switch sender {
+        case longPressGesture:
+            UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, UIScreen.main.scale )
+            view.layer.render(in: UIGraphicsGetCurrentContext()!)
+            let image = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            
+            //Save it to the camera roll
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.createScreenShotCompletion(image:didFinishSavingWithError:contextInfo:)), nil)
+            
+        case tapGesture:
+            let activityViewController = UIActivityViewController(
+                activityItems: [self.mainTextLabel.text!, self.subtitleTextLabel.text!],
+                applicationActivities: nil)
+            present(activityViewController, animated: true, completion: nil)
+            
+        default:
+            print("Unknow gesture triggered.")
+        }
+        
     }
     
     internal func registerForNotifications() {
@@ -62,11 +87,29 @@ class FoaasViewController: UIViewController {
         })
     }
 
-    func updateLabel(with foaas: Foaas){
+    internal func updateLabel(with foaas: Foaas){
         DispatchQueue.main.async {
             self.mainTextLabel.text = foaas.message
             self.subtitleTextLabel.text = "From,\n" + foaas.subtitle
         }
+    }
+    
+    internal func createScreenShotCompletion(image: UIImage, didFinishSavingWithError: NSError?, contextInfo: UnsafeMutableRawPointer?) {
+        // check if error != nil
+        if let error = didFinishSavingWithError{
+            print("error saving photo: \(error)")
+            // present appropriate message in UIAlertViewController
+            let alert = UIAlertController(title: "Error", message: "Screenshot Error!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            let alert = UIAlertController(title: "Complete", message: "Screenshot Saved to Library.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            // double check that the image actually gets saved to the camera roll
+            
+        }
+        
     }
 
 }
