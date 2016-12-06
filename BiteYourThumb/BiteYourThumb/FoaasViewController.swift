@@ -22,26 +22,27 @@ class FoaasViewController: UIViewController{
     }
     
     @IBAction func didPerformGesture(_ sender: UIGestureRecognizer){
-        switch sender {
-        case longPressGesture:
-            UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, UIScreen.main.scale )
-            view.layer.render(in: UIGraphicsGetCurrentContext()!)
-            let image = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext()
-            
-            //Save it to the camera roll
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.createScreenShotCompletion(image:didFinishSavingWithError:contextInfo:)), nil)
-            
-        case tapGesture:
-            let activityViewController = UIActivityViewController(
-                activityItems: [self.mainTextLabel.text!, self.subtitleTextLabel.text!],
-                applicationActivities: nil)
-            present(activityViewController, animated: true, completion: nil)
-            
-        default:
-            print("Unknow gesture triggered.")
+        if sender.state == UIGestureRecognizerState.began {
+            switch sender {
+            case longPressGesture:
+                UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, UIScreen.main.scale )
+                view.layer.render(in: UIGraphicsGetCurrentContext()!)
+                let image = UIGraphicsGetImageFromCurrentImageContext()!
+                UIGraphicsEndImageContext()
+                
+                //Save it to the camera roll
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.createScreenShotCompletion(image:didFinishSavingWithError:contextInfo:)), nil)
+                
+            case tapGesture:
+                let activityViewController = UIActivityViewController(
+                    activityItems: [self.mainTextLabel.text!, self.subtitleTextLabel.text!],
+                    applicationActivities: nil)
+                present(activityViewController, animated: true, completion: nil)
+                
+            default:
+                print("Unknow gesture triggered.")
+            }
         }
-        
     }
     
     internal func registerForNotifications() {
@@ -107,7 +108,7 @@ class FoaasViewController: UIViewController{
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             // double check that the image actually gets saved to the camera roll
-            
+         
         }
         
     }
