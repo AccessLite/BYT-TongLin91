@@ -29,6 +29,7 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var bottomOfScrollView: NSLayoutConstraint!
     let notificationCenter = NotificationCenter.default
     var operation: FoaasOperation?
+    var pathBuilder: FoaasPathBuilder!
     var foaas : Foaas?
     
     override func viewDidLoad() {
@@ -37,8 +38,9 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         self.firstTextField.delegate = self
         self.secondTextField.delegate = self
         self.thirdTextField.delegate = self
-        
         self.navigationItem.title = self.operation?.name
+        
+        self.pathBuilder = FoaasPathBuilder(operation: self.operation!)
         setupView()
         updatePreview()
         
@@ -110,8 +112,7 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     }
 
     func updatePreview(){
-        let finalEndpoint = self.getEndpoint().addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        FoaasDataManager.shared.requestFoaas(endpoint: finalEndpoint){ (foaas: Foaas?) in
+        FoaasDataManager.shared.requestFoaas(endpoint: "http://www.foaas.com\(self.pathBuilder.build())"){ (foaas: Foaas?) in
             if foaas != nil{
                 DispatchQueue.main.async {
                     self.foaas = foaas
@@ -121,28 +122,14 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    internal func getEndpoint() -> String{
-        let header = (self.operation?.url.components(separatedBy: "/:").first)!
-        switch (self.operation?.fields.count)! {
-        case 1:
-            return "http://www.foaas.com\(header)/\(firstKeyWord)"
-        case 2:
-            return "http://www.foaas.com\(header)/\(firstKeyWord)/\(secondKeyWord)"
-        case 3:
-            return "http://www.foaas.com\(header)/\(firstKeyWord)/\(secondKeyWord)/\(thirdKeyWord)"
-        default:
-            return "http://www.foaas.com\(header)"
-        }
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case firstTextField:
-            self.firstKeyWord = textField.text!
+            self.pathBuilder.update(key: (self.operation?.fields[0].field)!, value: textField.text!)
         case secondTextField:
-            self.secondKeyWord = textField.text!
+            self.pathBuilder.update(key: (self.operation?.fields[1].field)!, value: textField.text!)
         case thirdTextField:
-            self.thirdKeyWord = textField.text!
+            self.pathBuilder.update(key: (self.operation?.fields[2].field)!, value: textField.text!)
         default:
             print("smile")
         }
@@ -159,7 +146,6 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         default:
             print("Nothing happens")
         }
-    
     }
     
     @IBAction func selectButtonTapped(_ sender: Any) {

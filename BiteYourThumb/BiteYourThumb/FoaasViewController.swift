@@ -61,7 +61,7 @@ class FoaasViewController: UIViewController{
     func loadFoaas(){
         self.mainTextLabel.text = "Loading..."
         self.subtitleTextLabel.text = ""
-        FoaasDataManager.shared.requestFoaas(endpoint: "http://www.foaas.com/madison/me/future") {
+        FoaasDataManager.shared.requestFoaas(endpoint: "http://www.foaas.com/everything/Anonymous") {
             (foaas: Foaas?) in
             if foaas != nil{
                 DispatchQueue.main.async {

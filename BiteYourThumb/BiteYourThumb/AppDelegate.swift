@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        //FoaasDataManager.deleteStoredOperations()
+        //FoaasDataManager.shared.deleteStoredOperations()
         
         if !FoaasDataManager.shared.load() {
             FoaasDataManager.shared.requestOperations { (foaas: [FoaasOperation]?) in

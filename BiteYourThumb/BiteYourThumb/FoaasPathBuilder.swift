@@ -19,10 +19,13 @@ class FoaasPathBuilder {
      - parameter operation: The `FoaasOperation` to use in building a URL path.
      */
     init(operation: FoaasOperation) {
+        var finalFields: [String: String] = [:]
         for field in operation.fields{
-            self.operationFields[field.field] = "field"
+            finalFields[field.field] = "field"
         }
+        
         self.operation = operation
+        self.operationFields = finalFields
     }
     
     /**
