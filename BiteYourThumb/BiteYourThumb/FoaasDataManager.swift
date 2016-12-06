@@ -39,6 +39,10 @@ class FoaasDataManager {
         print("delete default data for key: " + FoaasDataManager.operationsKey)
     }
     
+    internal func requestFoaas(endpoint: String, _ operations: @escaping (Foaas?)->Void) {
+        FoaasAPIManager.getFoaas(url: URL(string: endpoint)!, completion: operations)
+    }
+    
     internal func requestOperations(_ operations: @escaping ([FoaasOperation]?)->Void) {
         FoaasAPIManager.getOperations(completion: operations)
     }

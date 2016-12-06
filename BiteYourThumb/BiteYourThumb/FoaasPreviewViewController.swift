@@ -111,7 +111,7 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
 
     func updatePreview(){
         let finalEndpoint = self.getEndpoint().addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        FoaasAPIManager.getFoaas(url: URL(string: finalEndpoint)!){ (foaas: Foaas?) in
+        FoaasDataManager.shared.requestFoaas(endpoint: finalEndpoint){ (foaas: Foaas?) in
             if foaas != nil{
                 DispatchQueue.main.async {
                     self.foaas = foaas

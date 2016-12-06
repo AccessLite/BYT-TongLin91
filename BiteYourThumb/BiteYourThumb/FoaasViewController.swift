@@ -58,10 +58,10 @@ class FoaasViewController: UIViewController{
         }
     }
     
-    func loadFoaas(from url: URL = URL(string: "http://www.foaas.com/madison/me/future")!){
-        self.mainTextLabel.text = ""
+    func loadFoaas(){
+        self.mainTextLabel.text = "Loading..."
         self.subtitleTextLabel.text = ""
-        FoaasAPIManager.getFoaas(url: url) {
+        FoaasDataManager.shared.requestFoaas(endpoint: "http://www.foaas.com/madison/me/future") {
             (foaas: Foaas?) in
             if foaas != nil{
                 DispatchQueue.main.async {
