@@ -23,8 +23,7 @@ class FoaasViewController: UIViewController{
     
     @IBAction func didPerformGesture(_ sender: UIGestureRecognizer){
         if sender.state == UIGestureRecognizerState.began {
-            switch sender {
-            case longPressGesture:
+            if sender == longPressGesture{
                 UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, UIScreen.main.scale )
                 view.layer.render(in: UIGraphicsGetCurrentContext()!)
                 let image = UIGraphicsGetImageFromCurrentImageContext()!
@@ -32,16 +31,13 @@ class FoaasViewController: UIViewController{
                 
                 //Save it to the camera roll
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.createScreenShotCompletion(image:didFinishSavingWithError:contextInfo:)), nil)
-                
-            case tapGesture:
-                let activityViewController = UIActivityViewController(
-                    activityItems: [self.mainTextLabel.text!, self.subtitleTextLabel.text!],
-                    applicationActivities: nil)
-                present(activityViewController, animated: true, completion: nil)
-                
-            default:
-                print("Unknow gesture triggered.")
             }
+        }
+        if sender == tapGesture{
+            let activityViewController = UIActivityViewController(
+                activityItems: [self.mainTextLabel.text!, self.subtitleTextLabel.text!],
+                applicationActivities: nil)
+            present(activityViewController, animated: true, completion: nil)
         }
     }
     
