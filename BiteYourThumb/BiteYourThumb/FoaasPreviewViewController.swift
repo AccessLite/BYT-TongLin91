@@ -138,7 +138,18 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
         var message = ""
         var subtitle = ""
         func cleanString(with: String) -> String{
-            return "*" + String(with.characters.dropFirst())
+            var filteredWrod = ""
+            var count = 0
+            let set: CharacterSet = ["a", "e", "i", "o", "u"]
+            for char in with.characters{
+                if count == 0 && set.contains(UnicodeScalar(String(char).lowercased())!){
+                    filteredWrod += "*"
+                    count += 1
+                }else{
+                    filteredWrod += String(char)
+                }
+            }
+            return filteredWrod
         }
         
         for word in (self.foaas?.message.components(separatedBy: " "))!{
@@ -167,7 +178,6 @@ class FoaasPreviewViewController: UIViewController, UITextFieldDelegate {
     @IBAction func languageFilter(_ sender: UISwitch) {
         updatePreviewLabel()
     }
-    
     
     @IBAction func selectButtonTapped(_ sender: Any) {
         //send foaas to view controller
